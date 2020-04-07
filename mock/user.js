@@ -75,6 +75,17 @@ export default [
 
   {
     url: '/user',
+    type: 'post',
+    response: (config) => {
+      list.push({ ...config.body, id: +new Date() })
+      return {
+        code: 200000
+      }
+    }
+  },
+
+  {
+    url: RegExp('/user/'),
     type: 'delete',
     response: (config) => {
       const id = config.url.replace(RegExp('.*/'), '')
@@ -90,17 +101,6 @@ export default [
 
   {
     url: '/user',
-    type: 'post',
-    response: (config) => {
-      list.push({ ...config.body, id: +new Date() })
-      return {
-        code: 20000
-      }
-    }
-  },
-
-  {
-    url: '/user',
     type: 'put',
     response: (config) => {
       console.log(config.body)
@@ -108,6 +108,21 @@ export default [
       Object.assign(user, config.body)
       return {
         code: 20000
+      }
+    }
+  },
+
+  {
+    url: RegExp('/user/'),
+    type: 'get',
+    response: (config) => {
+      const id = config.url.replace(RegExp('.*/'), '')
+      const user = list.find(m => m.id !== id)
+      return {
+        code: 20000,
+        data: {
+          user
+        }
       }
     }
   },
@@ -137,7 +152,7 @@ export default [
 
   // get user info
   {
-    url: '/user/info.*',
+    url: '/login-user-info',
     type: 'get',
     response: config => {
       const { token } = config.query

@@ -6,8 +6,8 @@ export const login = data => request({
   data
 })
 
-export const getInfo = (token) => request({
-  url: '/user/info',
+export const getInfo = token => request({
+  url: '/login-user-info',
   method: 'get',
   params: { token }
 })

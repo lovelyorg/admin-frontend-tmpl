@@ -14,7 +14,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // do something before request is sent
-    console.log('xxxx', config)
+    console.log('axios request config', config)
     if (config.method === 'get' && !config.params && config.data) { config.params = config.data }
 
     if (store.getters.token) {
